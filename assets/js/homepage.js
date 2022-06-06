@@ -8,17 +8,13 @@ var displayRepos = function (repos, searchTerm) {
     repoContainerEl.textContent = "";
     repoSearchTerm.innerText = searchTerm; //innerText or textContent?
 
-    console.log(repos);
-    console.log(repos[0].name);
-    console.log(repos[0].owner.login);
-    console.log(searchTerm);
+    if(repos.length===0){
+        repoContainerEl.textContent="No respositories found.";
+        return;
+    }
 
 
     for (var i = 0; i < repos.length; i++) {
-        // var repoName=repos[i].name;
-        // var repoIssue=repos[i].open_issues_count;
-
-        // repo name
         var repoName = repos[i].owner.login + "/" + repos[i].name;
 
         var repoEl = document.createElement("div");
@@ -47,13 +43,21 @@ var displayRepos = function (repos, searchTerm) {
 
 var getUserRepos = function (user) {
     var apiUrl = "https://api.github.com/users/" + user + "/repos";
-    // console.log(apiUrl);
+    
     fetch(apiUrl)
         .then(function (response) {
-            response.json()
+            if(response.ok){
+                response.json()
                 .then(function (data) {
                     displayRepos(data, user);
                 });
+            } else{
+                alert("Error: GitHub User Not Found");
+            }  
+        })
+        .catch(function(error){
+            // catch chained onto end of then method
+            alert("Unable to connect to GitHub.");
         });
 };
 
