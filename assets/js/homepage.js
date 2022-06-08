@@ -13,7 +13,6 @@ var displayRepos = function (repos, searchTerm) {
         return;
     }
 
-
     for (var i = 0; i < repos.length; i++) {
         var repoName = repos[i].owner.login + "/" + repos[i].name;
 
@@ -34,8 +33,6 @@ var displayRepos = function (repos, searchTerm) {
         }
 
         repoEl.appendChild(countEl);
-
-
         repoContainerEl.appendChild(repoEl);
 
     }
