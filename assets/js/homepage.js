@@ -16,8 +16,11 @@ var displayRepos = function (repos, searchTerm) {
     for (var i = 0; i < repos.length; i++) {
         var repoName = repos[i].owner.login + "/" + repos[i].name;
 
-        var repoEl = document.createElement("div");
+        var repoEl = document.createElement("a");
         repoEl.classList = "list-item flex-row justify-space-between align-center";
+        var repoQuery = "?repo="+repoName;
+        repoEl.setAttribute("href","./single-repo.html" + repoQuery); 
+        //when you create links to HTML pages in JavaScript, make sure the paths are relative to the HTML pages, not the JavaScript file.
 
         var titleEl = document.createElement("span");
         titleEl.textContent = repoName;
